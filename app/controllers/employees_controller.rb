@@ -40,6 +40,19 @@ class EmployeesController < ApplicationController
     @employee.destroy
   end
 
+  # GET tasks that are not complete
+  def active_tasks
+    @employee = Employee.find(params[:employee_id])
+    tasks = []
+    @employee.tasks.each do |task|
+      puts(task.completed )
+      if (task.completed == false)
+        tasks.push(task)
+      end
+    end
+    render json: tasks
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
@@ -48,6 +61,6 @@ class EmployeesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def employee_params
-      params.fetch(:department_id, :name)
+      params.permit(:department_id, :name)
     end
 end

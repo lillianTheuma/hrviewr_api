@@ -46,6 +46,6 @@ class BusinessProcessesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def business_process_params
-      params.fetch(:name, :description)
+      params.permit(:department_id, :name, :description)
     end
 end
