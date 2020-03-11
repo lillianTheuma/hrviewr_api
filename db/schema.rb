@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 5) do
     t.integer "employee_id"
     t.integer "business_process_id"
     t.string "task_name"
-    t.boolean "completed"
+    t.boolean "completed", default: false
     t.integer "performance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

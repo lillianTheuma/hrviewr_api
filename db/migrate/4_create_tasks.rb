@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.integer :employee_id
       t.integer :business_process_id
       t.string :task_name
-      t.boolean :completed
+      t.boolean :completed, :default => false
       t.integer :performance
       t.timestamps
     end
