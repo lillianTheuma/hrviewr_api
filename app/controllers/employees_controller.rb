@@ -13,6 +13,8 @@ class EmployeesController < ApplicationController
     render json: @employee
   end
 
+
+
   # POST /employees
   def create
     @employee = Employee.new(employee_params)
@@ -46,6 +48,6 @@ class EmployeesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def employee_params
-      params.fetch(:employee, {})
+      params.fetch(:department_id, :name)
     end
 end

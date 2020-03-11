@@ -6,15 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 processes_list = [
-  ["process private loan","reviewing paperwork from private applicant to process a loan application"],
-  ["process corporate loan","reviewing paperwork from corporate applicant to process a loan application"],
-  ["Holdings>Payroll xfer","transfer funds from holdings account to payroll"],
-  ["Holdings>Insurance xfer","transfer funds from holdings account to insurance"],
-  ["audit holdings","audit holdings account transactions"]
+  ["process private loan","reviewing paperwork from private applicant to process a loan application",1],
+  ["process corporate loan","reviewing paperwork from corporate applicant to process a loan application",1],
+  ["Holdings>Payroll xfer","transfer funds from holdings account to payroll", 2],
+  ["Holdings>Insurance xfer","transfer funds from holdings account to insurance", 2],
+  ["audit holdings","audit holdings account transactions", 2]
 ]
-processes_list.each do |name, description|
-  @business_process = BusinessProcess.create(name: name, description: description)
-  puts("Created Process: #{@business_process}")
+processes_list.each do |name, description, department_id|
+  @business_process = BusinessProcess.create(name: name, description: description, department_id: department_id)
+  puts("Created Process #{@business_process.id}: #{@business_process.name}")
 end
 
 departments_list = [
@@ -27,9 +27,10 @@ employees_list = [
   ["Alexis"],
   ["Mittens"]
 ]
-
+#[process ID, task name, performance]
 tasks_list = [
-  [1,"sycosec loan application",5]
+
+  [1,"sycosec loan application",1,5]
 ]
 
 departments_list.each do |department_name, department_description|
@@ -38,5 +39,11 @@ departments_list.each do |department_name, department_description|
   employees_list.each do |employee_name|
     @employee = Employee.create(department_id: @department.id, name: employee_name)
     puts("Created Employee: #{@employee.name}")
+    tasks_list.each do |pid, name, depid, performance|
+      if @department.id == depid
+        @task = Task.create(employee_id: @employee.id, business_process_id: pid, task_name: name, completed: false, performance: performance)
+        puts("Made a task for the #{@department.name} department, #{@task.business_process}")
+      end
+    end
   end
 end
