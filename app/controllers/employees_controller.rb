@@ -84,7 +84,30 @@ class EmployeesController < ApplicationController
     end
     render json: tasks_by_process
   end
-  
+
+  def get_average_performance_by_process
+    @employee = Employee.find(params[:employee_id])
+    @processes = BusinessProcess.all
+    tasks_by_process = []
+    @processes.each do |process|
+      count = 0
+      sum = 0
+      process.tasks.each do |task|
+        if (task.employee_id = @employee.id) && (task.completed == false)
+          count += 1
+          if task.performance
+            sum += task.performance
+          end
+        end
+      end
+
+      average = (sum/count).floor
+      result = {business_process_id: @process.id, performance_average: average}
+      tasks_by_process.push()
+    end
+    render json: tasks_by_process
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
