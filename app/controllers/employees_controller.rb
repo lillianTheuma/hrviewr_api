@@ -53,6 +53,38 @@ class EmployeesController < ApplicationController
     render json: tasks
   end
 
+  def get_active_tasks_by_process
+    @employee = Employee.find(params[:employee_id])
+    @processes = BusinessProcess.all
+    tasks_by_process = []
+    @processes.each do |process|
+      tasks = []
+      process.tasks.each do |task|
+        if (task.employee_id = @employee.id) && (task.completed == false)
+          tasks.push(task)
+        end
+      end
+      tasks_by_process.push(tasks)
+    end
+    render json: tasks_by_process
+  end
+
+  def get_tasks_by_process
+    @employee = Employee.find(params[:employee_id])
+    @processes = BusinessProcess.all
+    tasks_by_process = []
+    @processes.each do |process|
+      tasks = []
+      process.tasks.each do |task|
+        if task.employee_id = @employee.id
+          tasks.push(task)
+        end
+      end
+      tasks_by_process.push(tasks)
+    end
+    render json: tasks_by_process
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee

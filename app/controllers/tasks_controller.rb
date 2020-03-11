@@ -33,6 +33,16 @@ class TasksController < ApplicationController
     end
   end
 
+  # PATCH /tasks/1/complete
+  def completed
+    @task = Task.find(params[:task_id])
+    if @task.update(completion_params)
+      render json: @task
+    else
+      render json: @task.errors, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /tasks/1
   def destroy
     @task.destroy
@@ -45,6 +55,10 @@ class TasksController < ApplicationController
   end
 
   # Only allow a trusted parameter "white list" through.
+  def completion_params
+    params.permit(:performance, :completed)
+  end
+
   def task_params
     params.permit(:employee_id, :business_process_id, :task_name, :completed, :performance)
   end
