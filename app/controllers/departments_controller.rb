@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :update, :destroy]
-
+  before_action :doorkeeper_authorize! #requires access token for all actions
   # GET /departments
   def index
     @departments = Department.all

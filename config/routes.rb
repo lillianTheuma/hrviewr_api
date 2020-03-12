@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  use_doorkeeper
+  devise_for :users
   resources :business_processes
   resources :tasks do
     patch '/complete' => 'tasks#completed'
