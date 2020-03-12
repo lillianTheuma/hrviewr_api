@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :update, :destroy]
-  before_action :doorkeeper_authorize! #requires access token for all actions
+  #before_action :doorkeeper_authorize! #requires access token for all actions
   # GET /departments
   def index
     @departments = Department.all
@@ -11,6 +11,13 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   def show
     render json: @department
+  end
+
+  # GET /departments/1/processes
+  def processes
+    @department = Department.find(params[:department_id])
+    @processes = @department.business_processes
+    render json: @processes
   end
 
   # POST /departments

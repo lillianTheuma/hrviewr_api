@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :update, :destroy]
-  before_action :doorkeeper_authorize! #requires access token for all actions
+  #before_action :doorkeeper_authorize! #requires access token for all actions
   # GET /employees
   def index
     @employees = Employee.all
@@ -93,17 +93,20 @@ class EmployeesController < ApplicationController
       count = 0
       sum = 0
       process.tasks.each do |task|
-        if (task.employee_id = @employee.id) && (task.completed == false)
+        if (task.employee_id == @employee.id) && (task.completed == false)
           count += 1
           if task.performance
             sum += task.performance
           end
         end
       end
-
-      average = (sum/count).floor
-      result = {business_process_id: @process.id, performance_average: average}
-      tasks_by_process.push()
+      if count > 0
+        average = (sum/count).floor
+      else
+        average = 0
+      end
+      result = {business_process_id: process.id, performance_average: average}
+      tasks_by_process.push(result)
     end
     render json: tasks_by_process
   end
