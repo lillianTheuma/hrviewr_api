@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     get '/get_average_performance_by_process' => 'employees#get_average_performance_by_process'
   end
   resources :departments
+  resources :users
 # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
