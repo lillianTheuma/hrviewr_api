@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :update, :destroy]
-
+  before_action :doorkeeper_authorize! #requires access token for all actions
   # GET /employees
   def index
     @employees = Employee.all

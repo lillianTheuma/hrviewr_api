@@ -1,6 +1,6 @@
 class BusinessProcessesController < ApplicationController
   before_action :set_business_process, only: [:show, :update, :destroy]
-
+  before_action :doorkeeper_authorize! #requires access token for all actions
   # GET /business_processes
   def index
     @business_processes = BusinessProcess.all

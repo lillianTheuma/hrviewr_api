@@ -18,6 +18,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # Gemfile
 
+
+# Auth gems
+gem 'devise'
+gem "doorkeeper", "~> 5.3"
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
