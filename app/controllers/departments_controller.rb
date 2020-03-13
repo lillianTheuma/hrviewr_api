@@ -20,6 +20,11 @@ class DepartmentsController < ApplicationController
     render json: @processes
   end
 
+  # GET /departments/1/lowPerformance
+  # Gets list of employees with low average performance
+  def lowPerformance
+    
+  end
   # POST /departments
   def create
     @department = Department.new(department_params)
