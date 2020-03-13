@@ -34,6 +34,7 @@ class DepartmentsController < ApplicationController
     end
     return low_performance
   end
+  
   # POST /departments
   def create
     @department = Department.new(department_params)

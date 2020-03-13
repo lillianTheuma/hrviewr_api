@@ -12,10 +12,6 @@ processes_list = [
   ["Holdings>Insurance xfer","transfer funds from holdings account to insurance", 2],
   ["audit holdings","audit holdings account transactions", 2]
 ]
-processes_list.each do |name, description, department_id|
-  @business_process = BusinessProcess.create(name: name, description: description, department_id: department_id)
-  puts("Created Process #{@business_process.id}: #{@business_process.name}")
-end
 
 departments_list = [
   ["operations","handles business operations and loan applications"],
@@ -40,6 +36,12 @@ departments_list.each do |department_name, department_description|
   employees_list.each do |employee_name|
     @employee = Employee.create(department_id: @department.id, name: employee_name)
   end
+end
+
+processes_list.each do |name, description, department_id|
+  @business_process = BusinessProcess.create(name: name, description: description, department_id: department_id)
+  puts(@business_process.name)
+  puts("Created Process #{@business_process.id}: #{@business_process.name}")
 end
 
 tasks_list.each do |employee_id, business_process_id, task_name|
