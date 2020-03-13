@@ -37,21 +37,17 @@ tasks_list = [
 
 departments_list.each do |department_name, department_description|
   @department = Department.create(name: department_name, description: department_description)
-  puts("Created Department: #{@department.name}")
   employees_list.each do |employee_name|
     @employee = Employee.create(department_id: @department.id, name: employee_name)
-    puts("Created Employee: #{@employee.name}")
   end
 end
 
 tasks_list.each do |employee_id, business_process_id, task_name|
   @task = Task.create(employee_id: employee_id, business_process_id: business_process_id, task_name: task_name)
-  puts("Created Task: #{@task.task_name}")
 end
 
 tasks_list.each do |employee_id, business_process_id, task_name|
   @task = Task.create(employee_id: 2, business_process_id: business_process_id, task_name: task_name, completed: true, performance: 3)
-  puts("Created Task: #{@task.task_name}")
 end
 
 puts("Created #{Department.count} departments")
