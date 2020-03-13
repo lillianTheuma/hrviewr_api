@@ -111,6 +111,11 @@ class EmployeesController < ApplicationController
     render json: tasks_by_process
   end
 
+  def average_Performance
+    @employee = Employee.find(params[:employee_id])
+
+    render json: ({employee: @employee, performance: @employee.average_performance})
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee

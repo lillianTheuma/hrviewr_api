@@ -23,11 +23,12 @@ class DepartmentsController < ApplicationController
   # GET /departments/1/lowPerformance
   # Gets list of employees with low average performance
   def lowPerformance
+    puts("the code ran!")
     @department = Department.find(params[:department_id])
     @employees = @department.employees
     low_performance = []
     @employees.each do |employee|
-      if employee.average_performance < 3
+      if employee.average_performance <= 3
         low_performance.push({employee: employee, performance: employee.average_performance})
       end
     end

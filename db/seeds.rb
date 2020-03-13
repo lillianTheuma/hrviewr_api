@@ -30,7 +30,9 @@ employees_list = [
 #[process ID, task name, performance]
 tasks_list = [
 
-  [1,"sycosec loan application",1,5]
+  [1,1,"sycosec loan application"],
+  [1,1,"blarg loan app"],
+  [1,2,"ree evil monster"]
 ]
 
 departments_list.each do |department_name, department_description|
@@ -39,11 +41,20 @@ departments_list.each do |department_name, department_description|
   employees_list.each do |employee_name|
     @employee = Employee.create(department_id: @department.id, name: employee_name)
     puts("Created Employee: #{@employee.name}")
-    tasks_list.each do |pid, name, depid, performance|
-      if @department.id == depid
-        @task = Task.create(employee_id: @employee.id, business_process_id: pid, task_name: name, completed: false, performance: performance)
-        puts("Made a task for the #{@department.name} department, #{@task.business_process}")
-      end
-    end
   end
 end
+
+tasks_list.each do |employee_id, business_process_id, task_name|
+  @task = Task.create(employee_id: employee_id, business_process_id: business_process_id, task_name: task_name)
+  puts("Created Task: #{@task.task_name}")
+end
+
+tasks_list.each do |employee_id, business_process_id, task_name|
+  @task = Task.create(employee_id: 2, business_process_id: business_process_id, task_name: task_name, completed: true, performance: 3)
+  puts("Created Task: #{@task.task_name}")
+end
+
+puts("Created #{Department.count} departments")
+puts("Created #{Employee.count} employees")
+puts("Created #{BusinessProcess.count} business processes")
+puts("Created #{Task.count} active tasks")
