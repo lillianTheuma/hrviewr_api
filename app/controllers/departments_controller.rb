@@ -23,7 +23,15 @@ class DepartmentsController < ApplicationController
   # GET /departments/1/lowPerformance
   # Gets list of employees with low average performance
   def lowPerformance
-    
+    @department = Department.find(params[:department_id])
+    @employees = @department.employees
+    low_performance = []
+    @employees.each do |employee|
+      if employee.average_performance < 3
+        low_performance.push({employee: employee, performance: employee.average_performance})
+      end
+    end
+    return low_performance
   end
   # POST /departments
   def create
@@ -55,7 +63,6 @@ class DepartmentsController < ApplicationController
     def set_department
       @department = Department.find(params[:id])
     end
-
     # Only allow a trusted parameter "white list" through.
     def department_params
       params.permit(:name, :description)

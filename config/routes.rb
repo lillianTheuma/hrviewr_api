@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
   resources :departments do
     get '/processes' => 'departments#processes'
+    get '/lowPerformance' => 'departments#lowPerformance'
   end
   resources :users
 # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
